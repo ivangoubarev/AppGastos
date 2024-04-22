@@ -13,6 +13,8 @@ public class WebController {
 
     @Autowired
     private GastoService gastoService;
+    @Autowired
+    private PresupuestoService presupuestoService;
 
     @GetMapping("/registro")
     public String showRegistroForm(Model model) {
@@ -25,6 +27,18 @@ public class WebController {
     public String registrarGasto(Gasto gasto) {
         gastoService.saveGasto(gasto);
         return "redirect:/registro";
+    }
+
+    @GetMapping("/registroPresupuesto")
+    public String showRegistroPresupuestoForm(Model model) {
+        model.addAttribute("presupuesto", new Presupuesto());
+        return "registroPresupuesto";
+    }
+
+    @PostMapping("/registroPresupuesto")
+    public String registrarPresupuesto(Presupuesto presupuesto) {
+        presupuestoService.savePresupuesto(presupuesto);
+        return "redirect:/registroPresupuesto";
     }
 
     @GetMapping("/listado")

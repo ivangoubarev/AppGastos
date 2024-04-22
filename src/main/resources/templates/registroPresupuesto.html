@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Presupuesto</title>
+</head>
+<body>
+<h1>Registrar Presupuesto</h1>
+<form action="#" th:action="@{/registroPresupuesto}" th:object="${presupuesto}" method="post">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" th:field="*{nombre}"><br>
+    <button type="submit">Registrar</button>
+    <a th:href="@{/listado}">Ver listado</a>
+</form>
+
+</body>
+</html>

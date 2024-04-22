@@ -1,9 +1,6 @@
 package com.example.demo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -17,8 +14,13 @@ public class Gasto {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
+
     private double cantidad;
     private String descripcion;
+
+    @ManyToOne
+    @JoinColumn(name = "presupuesto_id")
+    private Presupuesto presupuesto;
 
     // Getters y setters
     public Long getId() {
