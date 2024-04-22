@@ -54,4 +54,12 @@ public class Gasto {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public Presupuesto getPresupuesto() {
+        return presupuesto;
+    }
+
+    public void setPresupuesto(Presupuesto presupuesto) {
+        this.presupuesto = presupuesto;
+    }
 }

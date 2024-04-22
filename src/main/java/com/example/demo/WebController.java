@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -19,12 +21,16 @@ public class WebController {
     @GetMapping("/registro")
     public String showRegistroForm(Model model) {
         model.addAttribute("gasto", new Gasto());
+        model.addAttribute("presupuestos", presupuestoService.getAllPresupuestos());
 
         return "registro";
     }
 
     @PostMapping("/registro")
-    public String registrarGasto(Gasto gasto) {
+    public String registrarGasto(@ModelAttribute("gasto") Gasto gasto, @RequestParam("presupuesto") Long presupuestoId) {
+
+        Presupuesto presupuesto = presupuestoService.getPresupuestoById(presupuestoId);
+        gasto.setPresupuesto(presupuesto);
         gastoService.saveGasto(gasto);
         return "redirect:/registro";
     }

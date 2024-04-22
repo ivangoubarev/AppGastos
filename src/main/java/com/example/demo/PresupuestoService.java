@@ -18,4 +18,8 @@ public class PresupuestoService {
     public Presupuesto savePresupuesto(Presupuesto presupuesto) {
         return presupuestoRepository.save(presupuesto);
     }
+
+    public Presupuesto getPresupuestoById(Long id) {
+        return presupuestoRepository.getReferenceById(id);
+    }
 }
