@@ -11,11 +11,13 @@
         <th>Fecha</th>
         <th>Cantidad</th>
         <th>Descripción</th>
+        <th>Presupuesto</th>
     </tr>
     <tr th:each="gasto : ${gastos}">
         <td th:text="${#dates.format(gasto.fecha, 'dd/MM/yyyy')}"></td>
         <td th:text="${gasto.cantidad}"></td>
         <td th:text="${gasto.descripcion}"></td>
+        <td th:text="${gasto.getPresupuesto().getNombre()}"></td>
     </tr>
 </table>
 <h2>Total de gastos: <span th:text="${total}"></span></h2>

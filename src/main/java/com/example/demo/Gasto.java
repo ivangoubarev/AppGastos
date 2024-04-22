@@ -56,6 +56,9 @@ public class Gasto {
     }
 
     public Presupuesto getPresupuesto() {
+        if(this.presupuesto == null) {
+            return new Presupuesto();
+        }
         return presupuesto;
     }
 
