@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Gasto</title>
+</head>
+<body>
+<h1>Registrar Gasto</h1>
+<form action="#" th:action="@{/registro}" th:object="${gasto}" method="post">
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" th:field="*{fecha}"><br>
+    <label for="cantidad">Cantidad:</label>
+    <input type="number" step="any" id="cantidad" th:field="*{cantidad}"><br>
+    <label for="descripcion">Descripción:</label>
+    <input type="text" id="descripcion" th:field="*{descripcion}"><br>
+    <button type="submit">Registrar</button>
+    <a th:href="@{/listado}">Ver listado</a>
+</form>
+
+</body>
+</html>

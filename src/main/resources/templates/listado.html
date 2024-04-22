@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Gastos</title>
+</head>
+<body>
+<h1>Listado de Gastos</h1>
+<table border="1">
+    <tr>
+        <th>Fecha</th>
+        <th>Cantidad</th>
+        <th>Descripción</th>
+    </tr>
+    <tr th:each="gasto : ${gastos}">
+        <td th:text="${#dates.format(gasto.fecha, 'dd/MM/yyyy')}"></td>
+        <td th:text="${gasto.cantidad}"></td>
+        <td th:text="${gasto.descripcion}"></td>
+    </tr>
+</table>
+<h2>Total de gastos: <span th:text="${total}"></span></h2>
+<a th:href="@{/registro}">Registrar gasto</a>
+</body>
+</html>
