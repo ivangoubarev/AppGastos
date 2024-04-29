@@ -15,7 +15,15 @@ public class GastoService {
         return gastoRepository.findAll();
     }
 
+    public List<Gasto> getGastosByUsuarioId(Long id) {
+        return gastoRepository.findByUsuarioId(id);
+    }
+
     public Gasto saveGasto(Gasto gasto) {
         return gastoRepository.save(gasto);
+    }
+
+    public void deleteGasto(Long id) {
+        gastoRepository.deleteById(id);
     }
 }

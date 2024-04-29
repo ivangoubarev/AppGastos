@@ -11,6 +11,10 @@ public class PresupuestoService {
     @Autowired
     private PresupuestoRepository presupuestoRepository;
 
+    public List<Presupuesto> getPresupuestosByUsuarioId(Long id) {
+        return presupuestoRepository.findByUsuarioId(id);
+    }
+
     public List<Presupuesto> getAllPresupuestos() {
         return presupuestoRepository.findAll();
     }
