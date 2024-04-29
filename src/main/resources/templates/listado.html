@@ -15,12 +15,14 @@
     </tr>
     <tr th:each="gasto : ${gastos}">
         <td th:text="${#dates.format(gasto.fecha, 'dd/MM/yyyy')}"></td>
-        <td th:text="${gasto.cantidad}"></td>
+        <td th:text="${#numbers.formatCurrency(gasto.cantidad)}"></td>
         <td th:text="${gasto.descripcion}"></td>
         <td th:text="${gasto.getPresupuesto().getNombre()}"></td>
     </tr>
 </table>
-<h2>Total de gastos: <span th:text="${total}"></span></h2>
+<h2>Total de gastos: <span th:text="${#numbers.formatCurrency(total)}"></span></h2>
 <a th:href="@{/registro}">Registrar gasto</a>
+<a th:href="@{/ingresarNomina}">Ingresar nómina</a>
+<a th:href="@{/listadoPresupuesto}">Ver balances de presupuestos</a>
 </body>
 </html>

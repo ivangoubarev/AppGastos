@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrar Gasto</title>
+    <link rel="stylesheet" href="@{/styles}">
 </head>
 <body>
-<h1>Registrar Gasto</h1>
-<form action="#" th:action="@{/registro}" th:object="${gasto}" method="post">
-    <label for="fecha">Fecha:</label>
-    <input type="date" id="fecha" th:field="*{fecha}"><br>
-    <label for="cantidad">Cantidad:</label>
-    <input type="number" step="any" id="cantidad" th:field="*{cantidad}"><br>
-    <label for="descripcion">Descripción:</label>
-    <input type="text" id="descripcion" th:field="*{descripcion}"><br>
-    <label for="presupuesto">Presupuesto:</label>
-    <select id="presupuesto" name="presupuesto">
-        <option value="">Selecciona un presupuesto</option>
-        <!-- Iterar sobre la lista de presupuestos y mostrar cada uno como una opción en la lista -->
-        <th:block th:each="presupuesto : ${presupuestos}">
-            <option th:value="${presupuesto.id}" th:text="${presupuesto.nombre}"></option>
-        </th:block>
-    </select>
-    <button type="submit">Registrar</button>
-    <a th:href="@{/listado}">Ver listado</a>
-</form>
+    <div class="container">
+        <h1>Registrar Gasto</h1>
+        <form action="#" th:action="@{/registro}" th:object="${gasto}" method="post">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" th:field="*{fecha}" required><br>
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" step="any" id="cantidad" th:field="*{cantidad}" required><br>
+            <label for="descripcion">Descripción:</label>
+            <input type="text" id="descripcion" th:field="*{descripcion}" required><br>
+            <label for="presupuesto">Presupuesto:</label>
+            <select id="presupuesto" name="presupuesto" required>
+                <option value="">Selecciona un presupuesto</option>
+                <th:block th:each="presupuesto : ${presupuestos}">
+                    <option th:value="${presupuesto.id}" th:text="${presupuesto.nombre}"></option>
+                </th:block>
+            </select>
+            <button type="submit">Registrar</button>
+            <a th:href="@{/listado}">Ver listado</a>
+        </form>
+    </div>
 
 </body>
 </html>

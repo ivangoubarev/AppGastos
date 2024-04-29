@@ -15,6 +15,10 @@ public class Presupuesto {
     @OneToMany(mappedBy = "presupuesto", cascade = CascadeType.ALL)
     private List<Gasto> gastos;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
     // Getters y setters
     public Long getId() {
         return id;
@@ -38,6 +42,18 @@ public class Presupuesto {
 
     public void setGastos(List<Gasto> gastos) {
         this.gastos = gastos;
+    }
+
+    public double getTotal() {
+        return gastos.stream().mapToDouble(Gasto::getCantidad).sum();
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
 

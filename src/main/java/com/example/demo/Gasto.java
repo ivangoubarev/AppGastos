@@ -22,6 +22,21 @@ public class Gasto {
     @JoinColumn(name = "presupuesto_id")
     private Presupuesto presupuesto;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    public Gasto() {
+    }
+
+    public Gasto(Date fecha, double cantidad, String descripcion, Presupuesto presupuesto, Usuario usuario) {
+        this.fecha = fecha;
+        this.cantidad = cantidad;
+        this.descripcion = descripcion;
+        this.presupuesto = presupuesto;
+        this.usuario = usuario;
+    }
+
     // Getters y setters
     public Long getId() {
         return id;
@@ -64,5 +79,13 @@ public class Gasto {
 
     public void setPresupuesto(Presupuesto presupuesto) {
         this.presupuesto = presupuesto;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
