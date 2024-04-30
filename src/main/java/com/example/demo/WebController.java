@@ -105,4 +105,26 @@ public class WebController {
         model.addAttribute("total", total);
         return "listadoPresupuesto";
     }
+
+    @GetMapping("/login")
+    String login() {
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    String logout() {
+        return "logout";
+    }
+
+    @GetMapping("/crearUsuario")
+    public String showCrearUsuarioForm(Model model) {
+        model.addAttribute("usuario", new Usuario());
+        return "crearUsuario";
+    }
+
+    @PostMapping("/crearUsuario")
+    public String crearUsuario(Usuario usuario) {
+        usuarioService.saveUsuario(usuario);
+        return "redirect:/login";
+    }
 }

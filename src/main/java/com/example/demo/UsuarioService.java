@@ -15,4 +15,8 @@ public class UsuarioService {
         Optional<Usuario> usuario = usuarioRepository.findByUsername(username);
         return usuario.orElse(null);
     }
+
+    public Usuario saveUsuario(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
 }

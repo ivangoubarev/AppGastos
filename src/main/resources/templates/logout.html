@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Logout</title>
+    <link th:href="@{/styles.css}" rel="stylesheet" />
+</head>
+<body>
+<h1>Do you want to log out?</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Log in" />
+</form>
+</body>
+</html>
