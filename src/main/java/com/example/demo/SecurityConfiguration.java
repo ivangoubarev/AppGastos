@@ -23,12 +23,15 @@ public class SecurityConfiguration{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers("/login").permitAll()
-                .anyRequest().authenticated()
-                ).httpBasic(Customizer.withDefaults())
-                .formLogin(form -> form
+                        .requestMatchers("/crearUsuario", "/error", "/styles.css").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .formLogin((form) -> form
                         .loginPage("/login")
-                        .permitAll());
+                        .permitAll()
+                        .defaultSuccessUrl("/listado", true)
+                )
+                .logout((logout) -> logout.permitAll());
         return http.build();
     }
 

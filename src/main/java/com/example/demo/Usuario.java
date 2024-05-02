@@ -19,6 +19,14 @@ public class Usuario{
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Presupuesto> presupuestos;
 
+    public Usuario(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public Usuario() {
+    }
+
     public Long getId() {
         return id;
     }

@@ -6,6 +6,9 @@
     <link th:href="@{/styles.css}" rel="stylesheet" />
 </head>
 <body>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Cerrar sesión" />
+</form>
 <h1>Listado de Gastos</h1>
 <table border="1">
     <tr>

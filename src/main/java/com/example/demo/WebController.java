@@ -123,8 +123,16 @@ public class WebController {
     }
 
     @PostMapping("/crearUsuario")
-    public String crearUsuario(Usuario usuario) {
-        usuarioService.saveUsuario(usuario);
-        return "redirect:/login";
+    public String registrarUsuario(@RequestParam("username") String username,
+                                   @RequestParam("password") String password,
+                                   @RequestParam("confirmPassword") String confirmPassword) {
+        if (!password.equals(confirmPassword)) {
+            return "redirect:/crearUsuario?noCoinc";
+        } else if(!(usuarioService.getByUsername(username) == null)) {
+            return "redirect:/crearUsuario?usuarioExiste";
+        } else {
+            usuarioService.saveUsuario(new Usuario(username, password));
+            return "redirect:/login";
+        }
     }
 }
