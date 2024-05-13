@@ -9,24 +9,33 @@
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Cerrar sesión" />
 </form>
-<h1>Listado de Gastos</h1>
-<table border="1">
-    <tr>
-        <th>Fecha</th>
-        <th>Cantidad</th>
-        <th>Descripción</th>
-        <th>Presupuesto</th>
-    </tr>
-    <tr th:each="gasto : ${gastos}">
-        <td th:text="${#dates.format(gasto.fecha, 'dd/MM/yyyy')}"></td>
-        <td th:text="${#numbers.formatCurrency(gasto.cantidad)}"></td>
-        <td th:text="${gasto.descripcion}"></td>
-        <td th:text="${gasto.getPresupuesto().getNombre()}"></td>
-    </tr>
-</table>
-<h2>Total de gastos: <span th:text="${#numbers.formatCurrency(total)}"></span></h2>
-<a th:href="@{/registro}">Registrar gasto</a>
-<a th:href="@{/ingresarNomina}">Ingresar nómina</a>
-<a th:href="@{/listadoPresupuesto}">Ver balances de presupuestos</a>
+<div class="container">
+    <h1>Listado de Gastos</h1>
+    <table>
+        <tr>
+            <th>Fecha</th>
+            <th>Cantidad</th>
+            <th>Descripción</th>
+            <th>Presupuesto</th>
+            <th>Eliminar</th>
+        </tr>
+        <tr th:each="gasto : ${gastos}">
+            <td th:text="${#dates.format(gasto.fecha, 'dd/MM/yyyy')}"></td>
+            <td th:text="${#numbers.formatCurrency(gasto.cantidad)}"></td>
+            <td th:text="${gasto.descripcion}"></td>
+            <td th:text="${gasto.getPresupuesto().getNombre()}"></td>
+            <td>
+                <form th:action="@{/eliminarGasto}" method="post">
+                    <input type="hidden" name="id" th:value="${gasto.id}" />
+                    <input type="submit" value="Eliminar" />
+                </form>
+            </td>
+        </tr>
+    </table>
+    <h2>Total de gastos: <span th:text="${#numbers.formatCurrency(total)}"></span></h2>
+    <a th:href="@{/registro}">Registrar gasto</a>
+    <a th:href="@{/ingresarNomina}">Ingresar nómina</a>
+    <a th:href="@{/listadoPresupuesto}">Ver balances de presupuestos</a>
+</div>
 </body>
 </html>

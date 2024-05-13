@@ -3,6 +3,8 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -131,8 +133,15 @@ public class WebController {
         } else if(!(usuarioService.getByUsername(username) == null)) {
             return "redirect:/crearUsuario?usuarioExiste";
         } else {
-            usuarioService.saveUsuario(new Usuario(username, password));
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            usuarioService.saveUsuario(new Usuario(username, "{bcrypt}" + passwordEncoder.encode(password)));
             return "redirect:/login";
         }
+    }
+
+    @PostMapping("/eliminarGasto")
+    public String eliminarGasto(Long id) {
+        gastoService.deleteGasto(id);
+        return "redirect:/listado";
     }
 }
