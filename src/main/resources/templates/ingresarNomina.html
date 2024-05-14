@@ -6,23 +6,26 @@
     <link th:href="@{/styles.css}" rel="stylesheet" />
 </head>
 <body>
-<h1>Ingresar nómina</h1>
-<form action="#" th:action="@{/ingresarNomina}" th:object="${ingresarNomina}" method="post">
-    <label for="fecha">Fecha:</label>
-    <input type="date" id="fecha" th:field="*{fecha}" required><br>
-    <label for="alquiler">Alquiler:</label>
-    <input type="number" step="any" id="alquiler" th:field="*{alquiler}" required><br>
-    <label for="otrosGastos">Otros gastos y facturas:</label>
-    <input type="number" step="any" id="otrosGastos" th:field="*{otrosGastos}" required><br>
-    <label for="comida">Comida:</label>
-    <input type="number" step="any" id="comida" th:field="*{comida}" required><br>
-    <label for="coche">Coche:</label>
-    <input type="number" step="any" id="coche" th:field="*{coche}" required><br>
-    <label for="totalNomina">Total nómina:</label>
-    <input type="number" step="any" id="totalNomina" th:field="*{totalNomina}" required><br>
-    <button type="submit">Registrar</button>
+<div class="container">
+    <h1>Ingresar nómina</h1>
+    <form th:action="@{/ingresarNomina}" th:object="${nomina}" method="post">
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" th:field="*{fecha}" required><br>
+        <label for="cantidad">Total de la nómina:</label>
+        <input type="number" step="any" id="cantidad" th:field="*{totalNomina}" required><br>
+        <div th:each="componente, componenteStat : ${nomina.componentes}">
+            <div style="display: flex;">
+                <label th:for="${'tipo_' + componente.presupuesto.nombre}" th:text="${componente.presupuesto.nombre}" style="flex-basis: 30%;"></label>
+                <select th:id="${'tipo_' + componente.presupuesto.nombre}" th:field="*{componentes[__${componenteStat.index}__].tipoComponenteNomina}" style="flex-basis: 30%;">
+                    <option value="FIJO">FIJO</option>
+                    <option value="PORCENTAJE">PORCENTAJE</option>
+                </select>
+                <input type="number" step="any" th:id="${'valor_' + componente.presupuesto.nombre}" th:field="*{componentes[__${componenteStat.index}__].valor}" style="flex-basis: 40%;" />
+            </div>
+        </div>
+        <button type="submit">Registrar nómina</button>
+    </form>
     <a th:href="@{/listado}">Ver listado</a>
-</form>
-
+</div>
 </body>
 </html>

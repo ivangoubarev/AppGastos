@@ -6,13 +6,14 @@
     <link th:href="@{/styles.css}" rel="stylesheet" />
 </head>
 <body>
-<h1>Registrar Presupuesto</h1>
-<form action="#" th:action="@{/registroPresupuesto}" th:object="${presupuesto}" method="post">
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" th:field="*{nombre}"><br>
-    <button type="submit">Registrar</button>
-    <a th:href="@{/listado}">Ver listado</a>
-</form>
-
+<div class="container">
+    <h1>Registrar Presupuesto</h1>
+    <form action="#" th:action="@{/registroPresupuesto}" th:object="${presupuesto}" method="post">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" th:field="*{nombre}"><br>
+        <button type="submit">Registrar</button>
+        <a th:href="@{/listado}">Ver listado</a>
+    </form>
+</div>
 </body>
 </html>

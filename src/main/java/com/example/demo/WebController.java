@@ -68,25 +68,33 @@ public class WebController {
 
     @GetMapping("/ingresarNomina")
     public String showIngresarNominaForm(Model model) {
-        model.addAttribute("ingresarNomina", new Nomina());
+        model.addAttribute("nomina", new Nomina(presupuestoService.getPresupuestosByUsuarioId(usuarioActivo.getId())));
         return "ingresarNomina";
     }
 
     @PostMapping("/ingresarNomina")
     public String IngresarNomina(Nomina nomina) {
-        gastoService.saveGasto(new Gasto(nomina.getFecha(), nomina.getComida(), "Presupuesto comida fecha " +
-                nomina.getFecha().toString(), presupuestoService.getPresupuestoById(1L), usuarioActivo));
-        gastoService.saveGasto(new Gasto(nomina.getFecha(), nomina.getAlquiler(), "Presupuesto alquiler fecha " +
-                nomina.getFecha().toString(), presupuestoService.getPresupuestoById(2L), usuarioActivo));
-        gastoService.saveGasto(new Gasto(nomina.getFecha(), nomina.getOcio(), "Presupuesto ocio fecha " +
-                nomina.getFecha().toString(), presupuestoService.getPresupuestoById(3L), usuarioActivo));
-        gastoService.saveGasto(new Gasto(nomina.getFecha(), nomina.getOtrosGastos(), "Presupuesto otros gastos fecha " +
-                nomina.getFecha().toString(), presupuestoService.getPresupuestoById(4L), usuarioActivo));
-        gastoService.saveGasto(new Gasto(nomina.getFecha(), nomina.getCoche(), "Presupuesto coche fecha " +
-                nomina.getFecha().toString(), presupuestoService.getPresupuestoById(5L), usuarioActivo));
-        gastoService.saveGasto(new Gasto(nomina.getFecha(), nomina.getAhorro(), "Presupuesto ahorro fecha " +
-                nomina.getFecha().toString(), presupuestoService.getPresupuestoById(6L), usuarioActivo));
-        return "redirect:/ingresarNomina";
+        double totalFijo = 0;
+        for(ComponenteNomina componenteNomina : nomina.getComponentes()) {
+            System.out.println(componenteNomina.getValor());
+            System.out.println(componenteNomina.getTipoComponenteNomina());
+            System.out.println(componenteNomina.getTipoComponenteNomina() == TipoComponenteNomina.FIJO);
+            if(componenteNomina.getValor() != 0 && componenteNomina.getTipoComponenteNomina() == TipoComponenteNomina.FIJO) {
+                gastoService.saveGasto(new Gasto(nomina.getFecha(), componenteNomina.getValor(),
+                        "Presupuesto mensual: " + componenteNomina.getPresupuesto().getNombre(), componenteNomina.getPresupuesto(),
+                        usuarioActivo));
+                totalFijo += componenteNomina.getValor();
+            }
+        }
+        for(ComponenteNomina componenteNomina : nomina.getComponentes()) {
+            if(componenteNomina.getValor() != 0 && componenteNomina.getTipoComponenteNomina() == TipoComponenteNomina.PORCENTAJE) {
+                gastoService.saveGasto(new Gasto(nomina.getFecha(), (nomina.getTotalNomina() - totalFijo) * (componenteNomina.getValor() / 100),
+                        "Presupuesto mensual: " + componenteNomina.getPresupuesto().getNombre(), componenteNomina.getPresupuesto(),
+                        usuarioActivo));
+            }
+        }
+
+        return "redirect:/listado";
     }
 
     @GetMapping("/listado")
