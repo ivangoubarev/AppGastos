@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -101,20 +102,22 @@ public class WebController {
     @GetMapping("/listado")
     public String showListado(Model model) {
         model.addAttribute("gastos", gastoService.getGastosByUsuarioId(usuarioActivo.getId()));
-        List<Gasto> gastos = gastoService.getGastosByUsuarioId(usuarioActivo.getId());
-        double total = gastos.stream().mapToDouble(Gasto::getCantidad).sum();
-        model.addAttribute("gastos", gastos);
-        model.addAttribute("total", total);
+        model.addAttribute("total", usuarioActivo.getBalance());
         return "listado";
     }
 
     @GetMapping("/listadoPresupuesto")
     public String showListadoPresupuesto(Model model) {
         model.addAttribute("presupuestos", presupuestoService.getPresupuestosByUsuarioId(usuarioActivo.getId()));
-        List<Gasto> gastos = gastoService.getGastosByUsuarioId(usuarioActivo.getId());
-        double total = gastos.stream().mapToDouble(Gasto::getCantidad).sum();
-        model.addAttribute("total", total);
+        model.addAttribute("total", usuarioActivo.getBalance());
         return "listadoPresupuesto";
+    }
+
+    @PostMapping("/recalcularBalances")
+    public String recalcularBalances(HttpServletRequest request) {
+        usuarioActivo.recalcularBalances();
+        usuarioService.saveUsuario(usuarioActivo);
+        return "redirect:" + request.getHeader("referer");
     }
 
     @GetMapping("/login")

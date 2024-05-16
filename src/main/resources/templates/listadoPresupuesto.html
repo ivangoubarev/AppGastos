@@ -15,10 +15,13 @@
         </tr>
         <tr th:each="presupuesto : ${presupuestos}">
             <td th:text="${presupuesto.nombre}"></td>
-            <td th:text="${#numbers.formatCurrency(presupuesto.getTotal())}"></td>
+            <td th:text="${#numbers.formatCurrency(presupuesto.getBalance)}"></td>
         </tr>
     </table>
     <h2>Total de gastos: <span th:text="${#numbers.formatCurrency(total)}"></span></h2>
+    <form th:action="@{/recalcularBalances}" method="post">
+        <input type="submit" value="Recalcular balances" />
+    </form>
     <a th:href="@{/registro}">Registrar gasto</a>
     <a th:href="@{/listado}">Ver listado</a>
 </div>

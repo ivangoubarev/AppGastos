@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,10 +19,12 @@ public class Gasto {
     private double cantidad;
     private String descripcion;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "presupuesto_id")
     private Presupuesto presupuesto;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;

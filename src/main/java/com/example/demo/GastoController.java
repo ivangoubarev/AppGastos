@@ -6,12 +6,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/gastos")
+@RequestMapping("/api/gastos")
 public class GastoController {
 
     @Autowired
     private GastoService gastoService;
 
+    @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping
     public List<Gasto> getAllGastos() {
         return gastoService.getAllGastos();

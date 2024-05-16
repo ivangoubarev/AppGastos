@@ -50,4 +50,18 @@ public class Usuario{
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public double getBalance() {
+        double balance = 0;
+        for(Presupuesto p : presupuestos) {
+            balance += p.getBalance();
+        }
+        return balance;
+    }
+
+    public void recalcularBalances() {
+        for(Presupuesto p : presupuestos) {
+            p.setBalance(p.getTotal());
+        }
+    }
 }
