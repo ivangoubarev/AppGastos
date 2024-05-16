@@ -12,6 +12,8 @@ public class Presupuesto {
 
     private String nombre;
 
+    private double balance;
+
     @OneToMany(mappedBy = "presupuesto", cascade = CascadeType.ALL)
     private List<Gasto> gastos;
 
@@ -54,6 +56,18 @@ public class Presupuesto {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public void actualizarBalance(double cantidad) {
+        this.balance += cantidad;
     }
 }
 

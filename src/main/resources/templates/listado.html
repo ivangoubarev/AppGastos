@@ -33,6 +33,9 @@
         </tr>
     </table>
     <h2>Total de gastos: <span th:text="${#numbers.formatCurrency(total)}"></span></h2>
+    <form th:action="@{/recalcularBalances}" method="post">
+        <input type="submit" value="Recalcular balances" />
+    </form>
     <a th:href="@{/registro}">Registrar gasto</a>
     <a th:href="@{/listadoPresupuesto}">Ver balances de presupuestos</a>
     <a th:href="@{/registroPresupuesto}">Registrar presupuesto</a>

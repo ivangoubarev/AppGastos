@@ -20,6 +20,7 @@ public class GastoService {
     }
 
     public Gasto saveGasto(Gasto gasto) {
+        gasto.getPresupuesto().actualizarBalance(gasto.getCantidad());
         return gastoRepository.save(gasto);
     }
 
