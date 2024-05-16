@@ -25,6 +25,8 @@ public class GastoService {
     }
 
     public void deleteGasto(Long id) {
+        Gasto tmp = gastoRepository.getReferenceById(id);
+        tmp.getPresupuesto().actualizarBalance(-tmp.getCantidad());
         gastoRepository.deleteById(id);
     }
 }
