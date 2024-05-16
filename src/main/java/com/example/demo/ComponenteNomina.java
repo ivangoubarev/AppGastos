@@ -17,6 +17,10 @@ public class ComponenteNomina {
         return presupuesto;
     }
 
+    public void setPresupuesto(Presupuesto presupuesto) {
+        this.presupuesto = presupuesto;
+    }
+
     public TipoComponenteNomina getTipoComponenteNomina() {
         return tipoComponenteNomina;
     }

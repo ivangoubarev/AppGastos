@@ -68,7 +68,7 @@ public class WebController {
 
     @GetMapping("/ingresarNomina")
     public String showIngresarNominaForm(Model model) {
-        model.addAttribute("nomina", new Nomina(presupuestoService.getPresupuestosByUsuarioId(usuarioActivo.getId())));
+        model.addAttribute("presupuestos", presupuestoService.getPresupuestosByUsuarioId(usuarioActivo.getId()));
         return "ingresarNomina";
     }
 
@@ -78,6 +78,7 @@ public class WebController {
         for(ComponenteNomina componenteNomina : nomina.getComponentes()) {
             System.out.println(componenteNomina.getValor());
             System.out.println(componenteNomina.getTipoComponenteNomina());
+            System.out.println(componenteNomina.getPresupuesto().getNombre());
             System.out.println(componenteNomina.getTipoComponenteNomina() == TipoComponenteNomina.FIJO);
             if(componenteNomina.getValor() != 0 && componenteNomina.getTipoComponenteNomina() == TipoComponenteNomina.FIJO) {
                 gastoService.saveGasto(new Gasto(nomina.getFecha(), componenteNomina.getValor(),
